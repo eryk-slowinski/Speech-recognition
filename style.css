@@ -1,0 +1,22 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to right, #00c9ff, #92fe9d);
+}
+
+h1 {
+    margin: 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 60px;
+    text-align: center;
+}
+
+.speech {
+    margin: 50px 0 100px 0;
+    font-size: 25px;
+    text-align: center;
+}
+
+.confidence {
+    text-align: center;
+    font-size: 15px;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Source+Sans+Pro&display=swap&subset=latin-ext"
+        rel="stylesheet">
+    <title>Speech recognition</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Speech recognition</h1>
+    <div class="speech"></div>
+    <div class="confidence"></div>
+    <script>
+        const speech = document.querySelector('.speech');
+        const confidence = document.querySelector('.confidence');
+
+        window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+
+        function recognizeSpeech() {
+            // Checking if users browser supports speech reco
+            if (!('SpeechRecognition' in window)) {
+                speech.textContent =
+                    'Unfortunately your browers does not support speech recognition. Try in Google Chrome.';
+                return;
+            }
+            const recognition = new SpeechRecognition();
+            // If you set it to true, function will be continously listening for speech, with false it will stop after catching a speech
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.onresult = handleResult;
+            recognition.start();
+        }
+
+        function saveWords(results) {
+            speech.textContent = `${(results[results.length - 1][0].transcript)}`;
+            confidence.textContent =
+                `Predicted accuracy of catching your speech: ${(((results[results.length - 1][0].confidence)).toFixed(2))* 100}%`;
+        }
+
+        function handleResult(event) {
+            saveWords(event.results);
+            console.log(event);
+        }
+
+        recognizeSpeech();
+    </script>
+</body>
+
+</html>
